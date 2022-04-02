@@ -17,16 +17,15 @@ namespace ka
         private GpioController controller; //difinere Rpi pins
         private SerLCD lCD;
         private TWIST tWIST;
-        private StartButton startButton;
-        private Battery battery;
+     
         public string CPRnummber { get; set; }
-        public PadLCD()
+        public PadLCD(SerLCD lcd, TWIST tWIST)
         {
             controller = new GpioController(PinNumberingScheme.Board); //dette er så jeg kan skrive pin istedet for GPIO
-            lCD = new SerLCD();
-            tWIST = new TWIST();
-            startButton = new StartButton();
-            battery = new Battery();
+            this.lCD = lcd;
+            this.tWIST = tWIST;
+
+
 
 
             lCD.lcdCursor();

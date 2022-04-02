@@ -18,12 +18,12 @@ namespace Raspberry_Pi_Dot_Net_Core_Console_Application3
         static void Main(string[] args)
         {
 
+            Communikation com = new Communikation();
 
+            com.comun();
 
-
-            PadLCD number = new PadLCD();
-
-
+            #region testfra master
+            //PadLCD number = new PadLCD();
 
             //number.WriteCpr();
             //number.OplyseYesNo();
@@ -56,6 +56,7 @@ namespace Raspberry_Pi_Dot_Net_Core_Console_Application3
 
             //    }
             //}
+            #endregion
 
 
             #region number pad
@@ -219,7 +220,7 @@ namespace Raspberry_Pi_Dot_Net_Core_Console_Application3
 
 
 
-        }
+    }
 
     }
     

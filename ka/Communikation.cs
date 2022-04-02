@@ -25,29 +25,28 @@ namespace ka
 
         public Communikation()
         {
-            padlcd = new PadLCD();
             lcd = new SerLCD();
             tWIST = new TWIST();
-            tWIST.setCount(0);
+            padlcd = new PadLCD(lcd,tWIST);
             battery = new Battery();
             startButton = new StartButton();
 
-          
+            tWIST.setCount(0);
+
+
         }
 
 
-        public void Program()
+        public void comun()
         {
             bool ja = true;
-      
-
 
             while (ja == true)
             {
-                if (startButton.ButtonIPressed() == true)
+                if (startButton.ButtonIPressed() == true && battery.GetVoltage() > 20)
                 {
-                    if (battery.GetVoltage() > 20)
-                    {
+                    //if (battery.GetVoltage() > 20)
+                    //{
                         lcd.lcdClear();
                         lcd.lcdGotoXY(0, 0);
                         lcd.lcdPrint("ønsker du at oplyse cpr-nummer");
@@ -108,6 +107,27 @@ namespace ka
                         }
                     
 
+                    //}
+                    //else
+                    //{
+                    //    lcd.lcdClear();
+                    //    lcd.lcdGotoXY(0, 0);
+                    //    lcd.lcdPrint("batteriet er for lav, oplade batteriet");
+                    //    Thread.Sleep(3000);
+                 
+
+                    //}
+                }
+                if (startButton.ButtonIPressed() == false)
+                {
+                    if (battery.GetVoltage() > 20)
+                    {
+                        lcd.lcdClear();
+                        lcd.lcdGotoXY(0, 0);
+                        lcd.lcdPrint("Systemet er klare tryk på start knappen");
+                        lcd.lcdGotoXY(0, 1);
+                        lcd.lcdPrint(Convert.ToString(battery.GetVoltage()) + "%");
+                        Thread.Sleep(3000);
                     }
                     else
                     {
@@ -115,18 +135,7 @@ namespace ka
                         lcd.lcdGotoXY(0, 0);
                         lcd.lcdPrint("batteriet er for lav, oplade batteriet");
                         Thread.Sleep(3000);
-                 
-
                     }
-                }
-                if (startButton.ButtonIPressed() == false)
-                {
-                    lcd.lcdClear();
-                    lcd.lcdGotoXY(0, 0);
-                    lcd.lcdPrint("Systemet er klare tryk på start knappen");
-                    lcd.lcdGotoXY(0, 1);
-                    lcd.lcdPrint(Convert.ToString(battery.GetVoltage()) + "%");
-                    Thread.Sleep(3000);
 
                 }
         }
