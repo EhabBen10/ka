@@ -8,11 +8,14 @@ using RaspberryPiNetCore.JoySticks;
 using RaspberryPiNetCore.LCD;
 using RaspberryPiNetCore.TWIST;
 using System.Threading;
+using System.Device.Gpio;
 
 namespace ka
 {
     class Communikation
     {
+        private GpioController controller;
+
         private PadLCD padlcd;
 
         private SerLCD lcd;
@@ -23,13 +26,16 @@ namespace ka
 
         private StartButton startButton;
 
+
+
         public Communikation()
         {
+            controller = new GpioController(PinNumberingScheme.Board);
             lcd = new SerLCD();
             tWIST = new TWIST();
-            padlcd = new PadLCD(lcd,tWIST);
+            padlcd = new PadLCD(lcd,tWIST, controller);
             battery = new Battery();
-            startButton = new StartButton();
+            startButton = new StartButton(controller);
 
             tWIST.setCount(0);
 

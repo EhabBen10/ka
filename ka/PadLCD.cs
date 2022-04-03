@@ -19,9 +19,10 @@ namespace ka
         private TWIST tWIST;
      
         public string CPRnummber { get; set; }
-        public PadLCD(SerLCD lcd, TWIST tWIST)
+        public PadLCD(SerLCD lcd, TWIST tWIST, GpioController gpioController)
         {
-            controller = new GpioController(PinNumberingScheme.Board); //dette er så jeg kan skrive pin istedet for GPIO
+            /* controller = new GpioController(PinNumberingScheme.Board);*/ //dette er så jeg kan skrive pin istedet for GPIO
+            this.controller = gpioController;
             this.lCD = lcd;
             this.tWIST = tWIST;
 
