@@ -124,9 +124,9 @@ namespace ka
 
                     //}
                 }
-                if (startButton.ButtonIPressed() == false)
+               else
                 {
-                    if (battery.GetVoltage() > 20)
+                    if (battery.GetVoltage() < 20)
                     {
                         lcd.lcdClear();
                         lcd.lcdGotoXY(0, 0);
