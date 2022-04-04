@@ -207,6 +207,13 @@ namespace ka
 
             }
 
+            controller.ClosePin(26);
+            controller.ClosePin(24);
+            controller.ClosePin(23);
+            controller.ClosePin(22);
+            controller.ClosePin(21);
+            controller.ClosePin(19);
+            controller.ClosePin(10);
         }
 
 
@@ -235,8 +242,8 @@ namespace ka
                 return true;
         }
 
-       
-       
+
+
         public string Gyldig()
         {
             if (VertifayCPR() == false)
@@ -265,7 +272,7 @@ namespace ka
             lCD.lcdPrint("1. Ja");
 
             lCD.lcdGotoXY(0, 2);
-            lCD.lcdPrint("1. Nej");
+            lCD.lcdPrint("2. Nej");
 
             while (tWIST.isPressed() == false)
             {
@@ -296,7 +303,7 @@ namespace ka
             lCD.lcdPrint("1. Ja");
 
             lCD.lcdGotoXY(0, 2);
-            lCD.lcdPrint("1. Nej");
+            lCD.lcdPrint("2. Nej");
 
             while (tWIST.isPressed() == false)
             {
@@ -318,6 +325,105 @@ namespace ka
         }
 
 
+        public void con()
+        {
+            int i = 0;
+            while (true)
+            {
 
+                if (startButton.ButtonIPressed() == true && battery.GetVoltage() > 20)
+                {
+                    lCD.lcdClear();
+                    lCD.lcdGotoXY(0, 0);
+                    lCD.lcdPrint("onsker du at oplyse cpr-nummer");
+                    if (OplyseYesNo() == true)
+                    {
+                        bool Måleigen = true;
+                        while (Måleigen == true)
+                        {
+                            WriteCpr();
+                            if (VertifayCPR() == true)
+                            {
+                                lCD.lcdClear();
+                                lCD.lcdGotoXY(0, 0);
+                                lCD.lcdPrint("Maaling paabegyndt");
+                                Thread.Sleep(3000);
+                                lCD.lcdClear();
+                                lCD.lcdPrint("Maaling afsluttet");
+
+                                //her skal den bare måle
+                                //ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString); //Starter målingen); //Opretter en DTO
+
+                                //while (ekgRecordRef.StartEkgRecord() == false) // Venter her indtil metoden returnerer true = måling færdig
+                                //{ }
+                                //lcd.lcdClear();
+                                //lcd.lcdPrint("Maaling afsluttet");
+                                //Thread.Sleep(3000);
+                                Måleigen = false;
+
+                            }
+                            else
+                            {
+                                lCD.lcdClear();
+                                lCD.lcdGotoXY(0, 0);
+                                lCD.lcdPrint("ikke gyldigt CPR-nummer");
+                                Thread.Sleep(3000);
+                                lCD.lcdClear();
+                                lCD.lcdGotoXY(0, 0);
+                                lCD.lcdPrint("Vil du bruge igen");
+                                MaleigenYesNo();
+                                Måleigen = MaleigenYesNo();
+
+
+                            }
+
+                        }
+
+
+
+
+                    }
+                    else
+                    {
+                        CPRnummber = "9999990000"; //her skal man tilføje til databasen med binde strege måske
+                        lCD.lcdClear();
+                        lCD.lcdGotoXY(0, 0);
+                        lCD.lcdPrint("Maaling paabegyndt");
+                        Thread.Sleep(3000);
+                        lCD.lcdGotoXY(0, 1);
+                        lCD.lcdPrint("Maaling afsluttet");
+                    }
+                    while (startButton.ButtonIPressed()) ;
+
+
+
+                }
+                else
+                {
+                    if (battery.GetVoltage() > 20)
+                    {
+                        lCD.lcdClear();
+                        lCD.lcdGotoXY(0, 0);
+                        lCD.lcdPrint("Systemet er klare tryk på start knappen");
+                        lCD.lcdGotoXY(0, 1);
+                        lCD.lcdPrint(Convert.ToDouble(battery.GetVoltage()) + "%");
+
+
+                        Thread.Sleep(2000);
+                    }
+                    else
+                    {
+                        lCD.lcdClear();
+                        lCD.lcdGotoXY(0, 0);
+                        lCD.lcdPrint("batteriet er for lav, oplade batteriet");
+
+
+                    }
+
+                }
+
+            }
+
+        }
     }
 }

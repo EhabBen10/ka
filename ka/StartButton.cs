@@ -16,6 +16,7 @@ namespace ka
         public StartButton()
         {
             controller = new GpioController(PinNumberingScheme.Board);
+         
             controller.OpenPin(buttonPin, PinMode.InputPullUp);
         }
     

@@ -18,15 +18,25 @@ namespace Raspberry_Pi_Dot_Net_Core_Console_Application3
         static void Main(string[] args)
         {
 
+//<<<<<<< Updated upstream
 
+//=======
+//            SerLCD lcd = new SerLCD();
+//            lcd.lcdClear();
+//            lcd.lcdGotoXY(0, 0);
+//            lcd.lcdPrint("Systemet er klare tryk på start knappen");
+
+//            //Communikation com = new Communikation();
+
+//            //com.comun();
+//>>>>>>> Stashed changes
 
 
             PadLCD number = new PadLCD();
 
 
+            number.con();
 
-            //number.WriteCpr();
-            //number.OplyseYesNo();
 
 
 
