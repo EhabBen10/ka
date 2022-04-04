@@ -129,6 +129,27 @@ namespace ka
                 }
                else
                 {
+                    if (battery.GetVoltage() > 20)
+                    {
+                        lcd.lcdClear();
+                        lcd.lcdGotoXY(0, 0);
+                        lcd.lcdPrint("Systemet er klare");
+                        lcd.lcdGotoXY(0, 1);
+                        lcd.lcdPrint("tryk på start knappen");
+                        lcd.lcdGotoXY(0, 2);
+                        lcd.lcdPrint(Convert.ToDouble(battery.GetVoltage()) + "%");
+
+
+                        //Thread.Sleep(200);
+                    }
+                    else
+                    {
+                        lcd.lcdPrint("batteriet er for");
+                        lcd.lcdGotoXY(0, 1);
+                        lcd.lcdPrint("lav, oplade batteriet");
+                        Thread.Sleep(3000);
+                    }   
+
                     //if(i < 1)
                     //{
                     //    lcd.lcdClear();
