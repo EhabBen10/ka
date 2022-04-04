@@ -43,19 +43,20 @@ namespace ka
         }
 
 
-        public void comun()
+        public void RUN()
         {
-            bool ja = true;
+            int i = 0;
+            double batterystaues = battery.GetVoltage();
 
-            while (ja == true)
+            while (true)
             {
                 if (startButton.ButtonIPressed() == true && battery.GetVoltage() > 20)
                 {
-                    //if (battery.GetVoltage() > 20)
-                    //{
+                   
                         lcd.lcdClear();
                         lcd.lcdGotoXY(0, 0);
-                        lcd.lcdPrint("ønsker du at oplyse cpr-nummer");
+                        padlcd.CPRnummber = null;
+                        lcd.lcdPrint("onsker du at oplyse cpr");
 
                         if(padlcd.OplyseYesNo() == true)
                         {
@@ -93,7 +94,8 @@ namespace ka
                                     lcd.lcdGotoXY(0, 0);
                                     lcd.lcdPrint("Vil du bruge igen");
                                     padlcd.MaleigenYesNo();
-                                    Måleigen = padlcd.MaleigenYesNo();
+                                    Måleigen = padlcd.MaleigenYesNo(); // måske skal jeg bare skrive den ene af dem
+
 
 
                                 }
@@ -111,7 +113,7 @@ namespace ka
                             lcd.lcdGotoXY(0, 1);
                             lcd.lcdPrint("Maaling afsluttet");
                         }
-                    
+
 
                     //}
                     //else
@@ -120,33 +122,55 @@ namespace ka
                     //    lcd.lcdGotoXY(0, 0);
                     //    lcd.lcdPrint("batteriet er for lav, oplade batteriet");
                     //    Thread.Sleep(3000);
-                 
+
 
                     //}
+                    while (startButton.ButtonIPressed()) ;
                 }
                else
                 {
-                    if (battery.GetVoltage() < 20)
-                    {
-                        lcd.lcdClear();
-                        lcd.lcdGotoXY(0, 0);
-                        lcd.lcdPrint("Systemet er klare tryk på start knappen");
-                        lcd.lcdGotoXY(0, 1);
-                        lcd.lcdPrint(Convert.ToString(battery.GetVoltage()) + "%");
-                        Thread.Sleep(3000);
-                    }
-                    else
-                    {
-                        lcd.lcdClear();
-                        lcd.lcdGotoXY(0, 0);
-                        lcd.lcdPrint("batteriet er for lav, oplade batteriet");
-                        Thread.Sleep(3000);
-                    }
+                    //if(i < 1)
+                    //{
+                    //    lcd.lcdClear();
+                    //    lcd.lcdGotoXY(0, 0);
+                    //    lcd.lcdPrint("Systemet er klare");
+                    //    lcd.lcdGotoXY(0, 1);
+                    //    lcd.lcdPrint("tryk på start knappen");
+                    //    lcd.lcdGotoXY(0, 2);
+                    //    lcd.lcdPrint(Convert.ToDouble(battery.GetVoltage()) + "%");
+                    //    i++;
+                    //}
+
+                    //if (battery.GetVoltage() < batterystaues)
+                    //{
+                    //    lcd.lcdClear();
+                    //    lcd.lcdGotoXY(0, 0);
+                    //    lcd.lcdPrint("Systemet er klare");
+                    //    lcd.lcdGotoXY(0, 1);
+                    //    lcd.lcdPrint("tryk på start knappen");
+                    //    lcd.lcdGotoXY(0, 2);
+                    //    lcd.lcdPrint(Convert.ToDouble(battery.GetVoltage()) + "%");
+                    //    batterystaues = battery.GetVoltage();
+                    //}
+
+                    //if (battery.GetVoltage() < 20)
+                    //{
+                    //    lcd.lcdClear();
+                    //    lcd.lcdGotoXY(0, 0);
+                    //    lcd.lcdPrint("batteriet er for");
+                    //    lcd.lcdGotoXY(0, 1);
+                    //    lcd.lcdPrint("lav, oplade batteriet");
+                    //    Thread.Sleep(3000);
+                    //}
 
                 }
         }
 
     }
+
+
+
+      
 
     }
 }

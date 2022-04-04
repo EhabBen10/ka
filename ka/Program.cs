@@ -20,7 +20,7 @@ namespace Raspberry_Pi_Dot_Net_Core_Console_Application3
 
             Communikation com = new Communikation();
 
-            com.comun();
+            com.RUN();
 
             #region testfra master
             //PadLCD number = new PadLCD();
