@@ -60,8 +60,9 @@ namespace ka
                         lcd.lcdPrint("oplyse cpr?");
 
                         if(padlcd.OplyseYesNo() == true)
-                        {
-                            bool Måleigen = true;
+                    {
+                       
+                        bool Måleigen = true;
                             while (Måleigen == true)
                             {
                                 padlcd.WriteCpr();

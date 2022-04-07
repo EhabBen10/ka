@@ -55,6 +55,7 @@ namespace ka
 
             lCD.lcdClear();
             lCD.lcdGotoXY(0, 0);
+            CPRnummber = "";
             lCD.lcdPrint("Indtast CPR nummer:");
             lCD.lcdGotoXY(0, 1);
             while (tal < 11) //så den kører til jeg stopper den
