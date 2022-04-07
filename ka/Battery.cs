@@ -13,9 +13,10 @@ namespace ka
 
         public double GetVoltage()
         {
-            double voltageInput = 3480;//adc.readADC_SingleEnded(1);
-            voltage = 2 * maxVoltage * (voltageInput / (Math.Pow(2, 12) / 100)) / 100;
-            return 21;
+            //double voltageInput = 3480;//adc.readADC_SingleEnded(1);
+            //voltage = 2 * maxVoltage * (voltageInput / (Math.Pow(2, 12) / 100)) / 100;
+            voltage = 5 * 6;
+            return voltage;
         }
     }
 }

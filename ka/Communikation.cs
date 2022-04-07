@@ -52,8 +52,9 @@ namespace ka
             {
                 if (startButton.ButtonIPressed() == true && battery.GetVoltage() > 20)
                 {
-                    i--;  
-                        lcd.lcdClear();
+                    i--;
+                 
+                    lcd.lcdClear();
                         lcd.lcdGotoXY(0, 0);
                         padlcd.CPRnummber = null;
                         lcd.lcdPrint("oplyse cpr?");
@@ -73,6 +74,7 @@ namespace ka
                                     lcd.lcdClear();
                                     lcd.lcdPrint("Maaling afsluttet");
                                 Thread.Sleep(2000);
+                          
 
                                 //her skal den bare måle
                                 //ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString); //Starter målingen); //Opretter en DTO
@@ -94,7 +96,7 @@ namespace ka
                                     lcd.lcdClear();
                                     lcd.lcdGotoXY(0, 0);
                                     lcd.lcdPrint("Vil du bruge igen");
-                                    padlcd.MaleigenYesNo();
+                                  
                                     Måleigen = padlcd.MaleigenYesNo(); // måske skal jeg bare skrive den ene af dem
 
 
@@ -106,8 +108,10 @@ namespace ka
                         }
                         else
                         {
-                            padlcd.CPRnummber = "9999990000"; //her skal man tilføje til databasen med binde strege måske
-                        lcd.lcdPrint("padlcd.CPRnummber");
+                        lcd.lcdClear();
+                        padlcd.CPRnummber = "9999990000"; //her skal man tilføje til databasen med binde strege måske
+                        lcd.lcdPrint(padlcd.CPRnummber);
+                        Thread.Sleep(3000);
                         lcd.lcdClear();
                             lcd.lcdGotoXY(0, 0);
                             lcd.lcdPrint("Maaling paabegyndt");
@@ -153,7 +157,7 @@ namespace ka
                     //    Thread.Sleep(3000);
                     //}   
 
-                    if (i < 1)
+                    if (i < 1 && battery.GetVoltage() == batterystaues)
                     {
                         lcd.lcdClear();
                         lcd.lcdGotoXY(0, 0);
@@ -163,29 +167,34 @@ namespace ka
                         lcd.lcdGotoXY(0, 2);
                         lcd.lcdPrint(Convert.ToDouble(battery.GetVoltage()) + "%");
                         i++;
+                  
                     }
 
-                    //if (battery.GetVoltage() < batterystaues)
-                    //{
-                    //    lcd.lcdClear();
-                    //    lcd.lcdGotoXY(0, 0);
-                    //    lcd.lcdPrint("Systemet er klare");
-                    //    lcd.lcdGotoXY(0, 1);
-                    //    lcd.lcdPrint("tryk på start knappen");
-                    //    lcd.lcdGotoXY(0, 2);
-                    //    lcd.lcdPrint(Convert.ToDouble(battery.GetVoltage()) + "%");
-                    //    batterystaues = battery.GetVoltage();
-                    //}
+                    if (battery.GetVoltage() < batterystaues && battery.GetVoltage() > 20)
+                    {
+                        lcd.lcdClear();
+                        lcd.lcdGotoXY(0, 0);
+                        lcd.lcdPrint("Systemet er klare");
+                        lcd.lcdGotoXY(0, 1);
+                        lcd.lcdPrint("tryk på start knappen");
+                        lcd.lcdGotoXY(0, 2);
+                        lcd.lcdPrint(Convert.ToDouble(battery.GetVoltage()) + "%");
+                        batterystaues = battery.GetVoltage();
+                        i++;
+                    }
 
-                    //if (battery.GetVoltage() < 20)
-                    //{
-                    //    lcd.lcdClear();
-                    //    lcd.lcdGotoXY(0, 0);
-                    //    lcd.lcdPrint("batteriet er for");
-                    //    lcd.lcdGotoXY(0, 1);
-                    //    lcd.lcdPrint("lav, oplade batteriet");
-                    //    Thread.Sleep(3000);
-                    //}
+                    if (battery.GetVoltage() < 20)
+                    {
+                        lcd.lcdClear();
+                        lcd.lcdGotoXY(0, 0);
+                        lcd.lcdPrint("batteriet er for");
+                        lcd.lcdGotoXY(0, 1);
+                        lcd.lcdPrint("lav, oplade batteriet");
+                        lcd.lcdGotoXY(0, 2);
+                        lcd.lcdPrint("Status" + Convert.ToDouble(battery.GetVoltage()) + "%");
+                        Thread.Sleep(3000);
+                        i++;
+                    }
 
                 }
         }

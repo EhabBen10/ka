@@ -206,6 +206,13 @@ namespace ka
 
 
             }
+            controller.ClosePin(26);
+            controller.ClosePin(24);
+            controller.ClosePin(23);
+            controller.ClosePin(22);
+            controller.ClosePin(21);
+            controller.ClosePin(19);
+            controller.ClosePin(10);
 
         }
 
@@ -265,8 +272,8 @@ namespace ka
             lCD.lcdPrint("1. Ja");
 
             lCD.lcdGotoXY(0, 2);
-            lCD.lcdPrint("1. Nej");
-
+            lCD.lcdPrint("2. Nej");
+         
             while (tWIST.isPressed() == false)
             {
                 if (tWIST.getCount() % 2 == 0) //hvis det antalt af twist går op i 2 og man trykker så vil den retunere den true
@@ -296,8 +303,8 @@ namespace ka
             lCD.lcdPrint("1. Ja");
 
             lCD.lcdGotoXY(0, 2);
-            lCD.lcdPrint("1. Nej");
-
+            lCD.lcdPrint("2. Nej");
+     
             while (tWIST.isPressed() == false)
             {
                 if (tWIST.getCount() % 2 == 0) //hvis det antalt af twist går op i 2 og man trykker så vil den retunere den true
