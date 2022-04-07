@@ -111,7 +111,7 @@ namespace ka
                         {
                         lcd.lcdClear();
                         padlcd.CPRnummber = "9999990000"; //her skal man tilføje til databasen med binde strege måske
-                        lcd.lcdPrint(padlcd.CPRnummber);
+                        lcd.lcdPrint("Cpr: " + padlcd.CPRnummber);
                         Thread.Sleep(3000);
                         lcd.lcdClear();
                             lcd.lcdGotoXY(0, 0);
@@ -171,7 +171,7 @@ namespace ka
                   
                     }
 
-                    if (battery.GetVoltage() < batterystaues && battery.GetVoltage() > 20)
+                    if (battery.GetVoltage() < batterystaues/* && battery.GetVoltage() > 20*/)
                     {
                         lcd.lcdClear();
                         lcd.lcdGotoXY(0, 0);
@@ -181,10 +181,10 @@ namespace ka
                         lcd.lcdGotoXY(0, 2);
                         lcd.lcdPrint(Convert.ToDouble(battery.GetVoltage()) + "%");
                         batterystaues = battery.GetVoltage();
-                        i++;
+                     
                     }
 
-                    if (battery.GetVoltage() < 20)
+                    if (startButton.ButtonIPressed() == true && battery.GetVoltage() <= 20)
                     {
                         lcd.lcdClear();
                         lcd.lcdGotoXY(0, 0);
@@ -194,7 +194,7 @@ namespace ka
                         lcd.lcdGotoXY(0, 2);
                         lcd.lcdPrint("Status" + Convert.ToDouble(battery.GetVoltage()) + "%");
                         Thread.Sleep(3000);
-                        i++;
+                       
                     }
 
                 }
