@@ -52,11 +52,11 @@ namespace ka
             {
                 if (startButton.ButtonIPressed() == true && battery.GetVoltage() > 20)
                 {
-                   
+                    i--;  
                         lcd.lcdClear();
                         lcd.lcdGotoXY(0, 0);
                         padlcd.CPRnummber = null;
-                        lcd.lcdPrint("onsker du at oplyse cpr");
+                        lcd.lcdPrint("oplyse cpr?");
 
                         if(padlcd.OplyseYesNo() == true)
                         {
@@ -72,16 +72,17 @@ namespace ka
                                     Thread.Sleep(3000);
                                     lcd.lcdClear();
                                     lcd.lcdPrint("Maaling afsluttet");
+                                Thread.Sleep(2000);
 
-                                    //her skal den bare måle
-                                    //ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString); //Starter målingen); //Opretter en DTO
+                                //her skal den bare måle
+                                //ekgRecordRef.CreateEKGDTO(displayRef.EmployeeIdAsString, displayRef.SocSecNumberAsString); //Starter målingen); //Opretter en DTO
 
-                                    //while (ekgRecordRef.StartEkgRecord() == false) // Venter her indtil metoden returnerer true = måling færdig
-                                    //{ }
-                                    //lcd.lcdClear();
-                                    //lcd.lcdPrint("Maaling afsluttet");
-                                    //Thread.Sleep(3000);
-                                    Måleigen = false;
+                                //while (ekgRecordRef.StartEkgRecord() == false) // Venter her indtil metoden returnerer true = måling færdig
+                                //{ }
+                                //lcd.lcdClear();
+                                //lcd.lcdPrint("Maaling afsluttet");
+                                //Thread.Sleep(3000);
+                                Måleigen = false;
 
                                 }
                                 else
@@ -106,13 +107,15 @@ namespace ka
                         else
                         {
                             padlcd.CPRnummber = "9999990000"; //her skal man tilføje til databasen med binde strege måske
-                            lcd.lcdClear();
+                        lcd.lcdPrint("padlcd.CPRnummber");
+                        lcd.lcdClear();
                             lcd.lcdGotoXY(0, 0);
                             lcd.lcdPrint("Maaling paabegyndt");
                             Thread.Sleep(3000);
                             lcd.lcdGotoXY(0, 1);
                             lcd.lcdPrint("Maaling afsluttet");
-                        }
+                        Thread.Sleep(2000);
+                    }
 
 
                     //}
@@ -129,28 +132,7 @@ namespace ka
                 }
                else
                 {
-                    if (battery.GetVoltage() > 20)
-                    {
-                        lcd.lcdClear();
-                        lcd.lcdGotoXY(0, 0);
-                        lcd.lcdPrint("Systemet er klare");
-                        lcd.lcdGotoXY(0, 1);
-                        lcd.lcdPrint("tryk på start knappen");
-                        lcd.lcdGotoXY(0, 2);
-                        lcd.lcdPrint(Convert.ToDouble(battery.GetVoltage()) + "%");
-
-
-                        //Thread.Sleep(200);
-                    }
-                    else
-                    {
-                        lcd.lcdPrint("batteriet er for");
-                        lcd.lcdGotoXY(0, 1);
-                        lcd.lcdPrint("lav, oplade batteriet");
-                        Thread.Sleep(3000);
-                    }   
-
-                    //if(i < 1)
+                    //if (battery.GetVoltage() > 20)
                     //{
                     //    lcd.lcdClear();
                     //    lcd.lcdGotoXY(0, 0);
@@ -159,8 +141,29 @@ namespace ka
                     //    lcd.lcdPrint("tryk på start knappen");
                     //    lcd.lcdGotoXY(0, 2);
                     //    lcd.lcdPrint(Convert.ToDouble(battery.GetVoltage()) + "%");
-                    //    i++;
+
+
+                    //    //Thread.Sleep(200);
                     //}
+                    //else
+                    //{
+                    //    lcd.lcdPrint("batteriet er for");
+                    //    lcd.lcdGotoXY(0, 1);
+                    //    lcd.lcdPrint("lav, oplade batteriet");
+                    //    Thread.Sleep(3000);
+                    //}   
+
+                    if (i < 1)
+                    {
+                        lcd.lcdClear();
+                        lcd.lcdGotoXY(0, 0);
+                        lcd.lcdPrint("Systemet er klare");
+                        lcd.lcdGotoXY(0, 1);
+                        lcd.lcdPrint("tryk på start knappen");
+                        lcd.lcdGotoXY(0, 2);
+                        lcd.lcdPrint(Convert.ToDouble(battery.GetVoltage()) + "%");
+                        i++;
+                    }
 
                     //if (battery.GetVoltage() < batterystaues)
                     //{
