@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LogicLayer\LogicLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="RaspberryNetCore">
       <HintPath>C:\RaspberryPi\RaspberryNetCore.dll</HintPath>
     </Reference>

@@ -9,6 +9,7 @@ using RaspberryPiNetCore.LCD;
 using RaspberryPiNetCore.TWIST;
 using System.Threading;
 using System.Device.Gpio;
+using LogicLayer;
 
 namespace ka
 {
@@ -27,16 +28,20 @@ namespace ka
         private StartButton startButton;
 
 
+        private EkgRecored ekgRecored;
 
+        private ADC1015 adc;
         public Communikation()
         {
             controller = new GpioController(PinNumberingScheme.Board);
             lcd = new SerLCD();
             tWIST = new TWIST();
+            adc = new ADC1015();
             padlcd = new PadLCD(lcd,tWIST, controller);
-            battery = new Battery();
+            battery = new Battery(adc);
             startButton = new StartButton(controller);
 
+            ekgRecored = new EkgRecored(adc);
             tWIST.setCount(0);
 
 
@@ -46,6 +51,7 @@ namespace ka
         public void RUN()
         {
             int i = 0;
+            int j = 0;
             double batterystaues = battery.GetVoltage();
 
             while (true)
@@ -71,8 +77,11 @@ namespace ka
                                     lcd.lcdClear();
                                     lcd.lcdGotoXY(0, 0);
                                     lcd.lcdPrint("Maaling paabegyndt");
-                                    Thread.Sleep(3000);
-                                    lcd.lcdClear();
+                                //Thread.Sleep(3000);
+                                while (ekgRecored.Startmaling() == false) { } //den ny
+                                //while ( == false) { }
+
+                                lcd.lcdClear();
                                     lcd.lcdPrint("Maaling afsluttet");
                                 Thread.Sleep(2000);
                           
@@ -116,8 +125,10 @@ namespace ka
                         lcd.lcdClear();
                             lcd.lcdGotoXY(0, 0);
                             lcd.lcdPrint("Maaling paabegyndt");
-                            Thread.Sleep(3000);
-                            lcd.lcdGotoXY(0, 1);
+                        //Thread.Sleep(3000);
+                        while (ekgRecored.Startmaling() == false) { } //den ny
+                                                                      //lcd.lcdGotoXY(0, 1);
+                        lcd.lcdClear();
                             lcd.lcdPrint("Maaling afsluttet");
                         Thread.Sleep(2000);
                     }
@@ -158,7 +169,7 @@ namespace ka
                     //    Thread.Sleep(3000);
                     //}   
 
-                    if (i < 1 && battery.GetVoltage() == batterystaues)
+                    if (i < 1 && battery.GetVoltage() == batterystaues && battery.GetVoltage() > 20)
                     {
                         lcd.lcdClear();
                         lcd.lcdGotoXY(0, 0);
@@ -170,8 +181,21 @@ namespace ka
                         i++;
                   
                     }
+                    if (j < 1 && battery.GetVoltage() == batterystaues && battery.GetVoltage() < 20) // denne kommer kun første gange hvis batterie statues er under 20
+                    {
+                        lcd.lcdClear();
+                        lcd.lcdGotoXY(0, 0);
+                        lcd.lcdPrint("batteriet er for");
+                        lcd.lcdGotoXY(0, 1);
+                        lcd.lcdPrint("lav, oplade batteriet");
+                        lcd.lcdGotoXY(0, 2);
+                        lcd.lcdPrint("Status" + Convert.ToDecimal(battery.GetVoltage()) + "%");
+                        j++;
 
-                    if (battery.GetVoltage() < batterystaues/* && battery.GetVoltage() > 20*/)
+                    }
+
+
+                    if (battery.GetVoltage() < batterystaues/* && battery.GetVoltage() > 20*/) // denne kommer hvert gange batterie statues ænder sig.
                     {
                         lcd.lcdClear();
                         lcd.lcdGotoXY(0, 0);
@@ -184,7 +208,7 @@ namespace ka
                      
                     }
 
-                    if (startButton.ButtonIPressed() == true && battery.GetVoltage() <= 20)
+                    if (startButton.ButtonIPressed() == true && battery.GetVoltage() <= 20) // denne kommer hvis man prøver at starte måling men batterie statues er under 20
                     {
                         lcd.lcdClear();
                         lcd.lcdGotoXY(0, 0);
@@ -192,8 +216,8 @@ namespace ka
                         lcd.lcdGotoXY(0, 1);
                         lcd.lcdPrint("lav, oplade batteriet");
                         lcd.lcdGotoXY(0, 2);
-                        lcd.lcdPrint("Status" + Convert.ToDouble(battery.GetVoltage()) + "%");
-                        Thread.Sleep(3000);
+                        lcd.lcdPrint("Status" + Convert.ToDecimal(battery.GetVoltage()) + "%");
+                  
                        
                     }
 
