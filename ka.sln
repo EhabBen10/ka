@@ -5,9 +5,7 @@ VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ka", "ka\ka.csproj", "{AAD06856-5B0E-4873-8598-D7B26DEAE3E5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "application test", "..\application test\application test\application test.csproj", "{CFF2CA1F-C37E-410A-8EC9-7DA7D1922F82}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicLayer", "LogicLayer\LogicLayer.csproj", "{D32E9F28-D37D-4A2E-AA3C-47EF36B6BD7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicLayer", "LogicLayer\LogicLayer.csproj", "{D32E9F28-D37D-4A2E-AA3C-47EF36B6BD7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		{AAD06856-5B0E-4873-8598-D7B26DEAE3E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAD06856-5B0E-4873-8598-D7B26DEAE3E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAD06856-5B0E-4873-8598-D7B26DEAE3E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CFF2CA1F-C37E-410A-8EC9-7DA7D1922F82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CFF2CA1F-C37E-410A-8EC9-7DA7D1922F82}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CFF2CA1F-C37E-410A-8EC9-7DA7D1922F82}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CFF2CA1F-C37E-410A-8EC9-7DA7D1922F82}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D32E9F28-D37D-4A2E-AA3C-47EF36B6BD7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D32E9F28-D37D-4A2E-AA3C-47EF36B6BD7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D32E9F28-D37D-4A2E-AA3C-47EF36B6BD7C}.Release|Any CPU.ActiveCfg = Release|Any CPU

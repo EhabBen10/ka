@@ -37,6 +37,9 @@ namespace ka
             lcd = new SerLCD();
             tWIST = new TWIST();
             adc = new ADC1015();
+
+            lcd.lcdSetBackLight(50, 50, 0);
+
             padlcd = new PadLCD(lcd,tWIST, controller);
             battery = new Battery(adc);
             startButton = new StartButton(controller);
