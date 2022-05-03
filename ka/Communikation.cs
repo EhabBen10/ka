@@ -31,6 +31,8 @@ namespace ka
         private EkgRecored ekgRecored;
 
         private ADC1015 adc;
+
+        private double batteriStatusVoltage;
         public Communikation()
         {
             controller = new GpioController(PinNumberingScheme.Board);
@@ -59,14 +61,17 @@ namespace ka
 
             while (true)
             {
-                if (startButton.ButtonIPressed() == true && battery.GetVoltage() > 20)
+                Thread.Sleep(50);
+                batteriStatusVoltage = battery.GetVoltage(); //det er så den måler batterie statues hvert gange vi looper
+
+                if (startButton.ButtonIPressed() == true && batteriStatusVoltage > 20)
                 {
                     i--;
                  
                     lcd.lcdClear();
                         lcd.lcdGotoXY(0, 0);
                         padlcd.CPRnummber = null;
-                        lcd.lcdPrint("oplyse cpr?");
+                        lcd.lcdPrint("Oplys CPR?");
 
                         if(padlcd.OplyseYesNo() == true)
                     {
@@ -75,7 +80,7 @@ namespace ka
                             while (Måleigen == true)
                             {
                                 padlcd.WriteCpr();
-                                if (padlcd.VertifayCPR() == true)
+                                if (/*padlcd.*/VertifayCPR() == true)
                                 {
                                     lcd.lcdClear();
                                     lcd.lcdGotoXY(0, 0);
@@ -86,7 +91,7 @@ namespace ka
 
                                 lcd.lcdClear();
                                     lcd.lcdPrint("Maaling afsluttet");
-                                Thread.Sleep(2000);
+                                Thread.Sleep(3000);
                           
 
                                 //her skal den bare måle
@@ -104,11 +109,11 @@ namespace ka
                                 {
                                     lcd.lcdClear();
                                     lcd.lcdGotoXY(0, 0);
-                                    lcd.lcdPrint("ikke gyldigt CPR-nummer");
+                                    lcd.lcdPrint("Ikke gyldigt CPR-nummer");
                                     Thread.Sleep(3000);
                                     lcd.lcdClear();
                                     lcd.lcdGotoXY(0, 0);
-                                    lcd.lcdPrint("Vil du bruge igen");
+                                    lcd.lcdPrint("Vil du prove igen?");
                                   
                                     Måleigen = padlcd.MaleigenYesNo(); // måske skal jeg bare skrive den ene af dem
 
@@ -123,7 +128,7 @@ namespace ka
                         {
                         lcd.lcdClear();
                         padlcd.CPRnummber = "9999990000"; //her skal man tilføje til databasen med binde strege måske
-                        lcd.lcdPrint("Cpr: " + padlcd.CPRnummber);
+                        lcd.lcdPrint("CPR: " + padlcd.CPRnummber);
                         Thread.Sleep(3000);
                         lcd.lcdClear();
                             lcd.lcdGotoXY(0, 0);
@@ -133,7 +138,7 @@ namespace ka
                                                                       //lcd.lcdGotoXY(0, 1);
                         lcd.lcdClear();
                             lcd.lcdPrint("Maaling afsluttet");
-                        Thread.Sleep(2000);
+                        Thread.Sleep(3000);
                     }
 
 
@@ -171,8 +176,8 @@ namespace ka
                     //    lcd.lcdPrint("lav, oplade batteriet");
                     //    Thread.Sleep(3000);
                     //}   
-
-                    if (i < 1 && battery.GetVoltage() == batterystaues && battery.GetVoltage() > 20)
+                 
+                    if (i < 1 && batteriStatusVoltage == batterystaues && batteriStatusVoltage > 20)
                     {
                         lcd.lcdClear();
                         lcd.lcdGotoXY(0, 0);
@@ -180,11 +185,13 @@ namespace ka
                         lcd.lcdGotoXY(0, 1);
                         lcd.lcdPrint("tryk på start knappen");
                         lcd.lcdGotoXY(0, 2);
-                        lcd.lcdPrint(Convert.ToDouble(battery.GetVoltage()) + "%");
+                        lcd.lcdPrint(Convert.ToDouble(batteriStatusVoltage) + "%");
                         i++;
+                      
                   
-                    }
-                    if (j < 1 && battery.GetVoltage() == batterystaues && battery.GetVoltage() < 20) // denne kommer kun første gange hvis batterie statues er under 20
+                    } // denne kører første gang når batteristatus er over 20%
+                   
+                    if (j < 1 && batteriStatusVoltage == batterystaues && batteriStatusVoltage < 20) // denne kommer kun første gange hvis batterie statues er under 20
                     {
                         lcd.lcdClear();
                         lcd.lcdGotoXY(0, 0);
@@ -192,13 +199,13 @@ namespace ka
                         lcd.lcdGotoXY(0, 1);
                         lcd.lcdPrint("lav, oplade batteriet");
                         lcd.lcdGotoXY(0, 2);
-                        lcd.lcdPrint("Status" + Convert.ToDecimal(battery.GetVoltage()) + "%");
+                        lcd.lcdPrint("Status" + Convert.ToDecimal(batteriStatusVoltage) + "%");
                         j++;
 
-                    }
+                    }// denne kører første gang når batteristatus er under 20%
 
-
-                    if (battery.GetVoltage() < batterystaues/* && battery.GetVoltage() > 20*/) // denne kommer hvert gange batterie statues ænder sig.
+                    //Thread.Sleep(50);
+                    if (batteriStatusVoltage < batterystaues && batteriStatusVoltage > 20) // denne kommer hvert gange batterie statues ænder sig.
                     {
                         lcd.lcdClear();
                         lcd.lcdGotoXY(0, 0);
@@ -206,12 +213,11 @@ namespace ka
                         lcd.lcdGotoXY(0, 1);
                         lcd.lcdPrint("tryk på start knappen");
                         lcd.lcdGotoXY(0, 2);
-                        lcd.lcdPrint(Convert.ToDouble(battery.GetVoltage()) + "%");
-                        batterystaues = battery.GetVoltage();
+                        lcd.lcdPrint(Convert.ToDouble(batteriStatusVoltage) + "%");
+                        batterystaues = batteriStatusVoltage;
                      
-                    }
-
-                    if (startButton.ButtonIPressed() == true && battery.GetVoltage() <= 20) // denne kommer hvis man prøver at starte måling men batterie statues er under 20
+                    } //hvis batteri´staus ændre sig og bliver større end før imens man og bliver mindre men større end 20%
+                    if (batteriStatusVoltage < batterystaues && batteriStatusVoltage < 20) // denne kommer hvert gange batterie statues ænder sig.
                     {
                         lcd.lcdClear();
                         lcd.lcdGotoXY(0, 0);
@@ -219,10 +225,47 @@ namespace ka
                         lcd.lcdGotoXY(0, 1);
                         lcd.lcdPrint("lav, oplade batteriet");
                         lcd.lcdGotoXY(0, 2);
-                        lcd.lcdPrint("Status" + Convert.ToDecimal(battery.GetVoltage()) + "%");
-                  
-                       
+                        lcd.lcdPrint("Status" + Convert.ToDecimal(batteriStatusVoltage) + "%");
+                        batterystaues = batteriStatusVoltage;
+
+                    } //omvendt
+                    if (batteriStatusVoltage > batterystaues && batteriStatusVoltage > 20) // denne kommer hvert gange batterie statues ænder sig.
+                    {
+                        lcd.lcdClear();
+                        lcd.lcdGotoXY(0, 0);
+                        lcd.lcdPrint("Systemet er klare");
+                        lcd.lcdGotoXY(0, 1);
+                        lcd.lcdPrint("tryk på start knappen");
+                        lcd.lcdGotoXY(0, 2);
+                        lcd.lcdPrint(Convert.ToDouble(batteriStatusVoltage) + "%");
+                        batterystaues = batteriStatusVoltage;
+
+                    } //hvis batteri´staus ændre sig og bliver større  imens man og bliver mindre men større end 20%
+                    if (batteriStatusVoltage > batterystaues && batteriStatusVoltage < 20) // denne kommer hvert gange batterie statues ænder sig.
+                    {
+                        lcd.lcdClear();
+                        lcd.lcdGotoXY(0, 0);
+                        lcd.lcdPrint("batteriet er for");
+                        lcd.lcdGotoXY(0, 1);
+                        lcd.lcdPrint("lav, oplade batteriet");
+                        lcd.lcdGotoXY(0, 2);
+                        lcd.lcdPrint("Status" + Convert.ToDecimal(batteriStatusVoltage) + "%");
+                        batterystaues = batteriStatusVoltage;
+
                     }
+
+                    if (startButton.ButtonIPressed() == true && batteriStatusVoltage <= 20) // denne kommer hvis man prøver at starte måling men batterie statues er under 20
+                    {
+                        lcd.lcdClear();
+                        lcd.lcdGotoXY(0, 0);
+                        lcd.lcdPrint("batteriet er for");
+                        lcd.lcdGotoXY(0, 1);
+                        lcd.lcdPrint("lav, oplade batteriet");
+                        lcd.lcdGotoXY(0, 2);
+                        lcd.lcdPrint("Status" + Convert.ToDecimal(batteriStatusVoltage) + "%");
+
+
+                    } //hvis man trykker på start knappen imens batteri statues er under 20%
 
                 }
         }
@@ -231,7 +274,25 @@ namespace ka
 
 
 
-      
+        public bool VertifayCPR()
+        {
+            int[] integer = new int[padlcd.CPRnummber.Length]; // her laver en int array og sætter antallet til at være lige med bogstaverne i CPR-nr
+            for (int i = 0; i < padlcd.CPRnummber.Length; i++)
+            {
+                for (int j = 0; j < integer.Length; j++)
+                {
+                    if (j == i)
+                    {
+                        integer[j] = padlcd.CPRnummber[i] - 48; //man er nøde til at trække 48 fra fordi 0 har værdien 48 når man laver det om
+                    }
+                }
+            }
+            //// Algoritme der kotrollerer om cifrene danner et gyldigt personnummer
+            if ((4 * integer[0] + 3 * integer[1] + 2 * integer[2] + 7 * integer[3] + 6 * integer[4] + 5 * integer[5] + 4 * integer[6] + 3 * integer[7] + 2 * integer[8] + integer[9]) % 11 != 0)
+                return false;
+            else
+                return true;
+        }
 
     }
 }

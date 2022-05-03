@@ -1,7 +1,9 @@
 ﻿using System;
 using RaspberryPiNetCore.ADC;
 using System.Threading;
+using System.Collections.Generic;
 namespace LogicLayer
+
 {
     public class EkgRecored
     {
@@ -23,7 +25,7 @@ namespace LogicLayer
         /// <summary>
         /// Array til de ekg data vi insamler fra patienten 
         /// </summary>
-        private double[] EkgData; // de ekg data vi insamler fra patienten 
+        private List<double> EkgData; // de ekg data vi insamler fra patienten 
         /// <summary>
         /// en sample
         /// </summary>
@@ -33,6 +35,8 @@ namespace LogicLayer
         /// <summary>
         /// Constructor til klassen. Initialiserer referencen til DataLayer.
         /// </summary>
+        /// 
+        private int antal;
         public EkgRecored(ADC1015 adc)
         {
             this.adc = adc;
@@ -42,19 +46,26 @@ namespace LogicLayer
             
             bool ekgfardig = false;
             StartTiden = DateTime.Now.ToString("dd MMMM yyyy HH: mm:ss");
-            EkgData = new double[SamplePeriode * SampleRate]; // dvs at den kører i 30 sek fordi den tager en måling hver 10 mSek dvs. 100 målinger pr. sek
+            //EkgData = new double[SamplePeriode * SampleRate]; // dvs at den kører i 30 sek fordi den tager en måling hver 10 mSek dvs. 100 målinger pr. sek
+            adc.ReadADC_SingleEnded(0);
+            EkgData = new List<double>();
+            antal = SamplePeriode * SampleRate;
 
-
-            for (int i = 0; i < SamplePeriode * SampleRate; i++)
+            while(antal-- > 0)
             {
-                sample = (adc.ReadADC_SingleEnded(0) / 2048.0) * 6.144;
-                //System.Diagnostics.Debug.WriteLine("input fra adc:    :  " + sample);
-
-                EkgData[i] = sample;
-
-                Thread.Sleep((1000 / SampleRate)); //der kører 170 målinger pr sek
+                EkgData.Add(adc.SINGLE_Measurement[0].Take()/332.0);   
             }
 
+            //for (int i = 0; i < SamplePeriode * SampleRate; i++)
+            //{
+            //    sample = (adc.ReadADC_SingleEnded(0) / 2048.0) * 6.144;
+            //    //System.Diagnostics.Debug.WriteLine("input fra adc:    :  " + sample);
+
+            //    EkgData[i] = sample;
+            //    //EkgData[i] = adc.SINGLE_Measurement[0].Take();
+            //    Thread.Sleep((1000 / SampleRate)); //der kører 170 målinger pr sek
+            //}
+            adc.Stop_SingleEnded(0);
             ekgfardig = true;
             return ekgfardig;
         }
