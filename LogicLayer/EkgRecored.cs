@@ -2,6 +2,9 @@
 using RaspberryPiNetCore.ADC;
 using System.Threading;
 using System.Collections.Generic;
+using DTO;
+using DataLayer;
+
 namespace LogicLayer
 
 {
@@ -11,9 +14,9 @@ namespace LogicLayer
         private ADC1015 adc;
 
         /// <summary>
-        /// hvor mange måling vi skal tage pr.min
+        /// hvor mange måling vi skal tage pr.sek
         /// </summary>
-        int SampleRate = 170; //hvor mange måling vi skal tage pr.min
+        int SampleRate = 170; //hvor mange måling vi skal tage pr.sek
         /// <summary>
         ///  10 sekunder
         /// </summary>
@@ -32,15 +35,24 @@ namespace LogicLayer
         double sample = 0;
 
         private static int MalingRate = 10; // Dvs. at vi vil tage 100 målinger pr.sek
+       
+        private int antal;
+
+
+        private DTO_EKGmaaling eKGmaaling;
+
+        private DatabaseCon con;
+
         /// <summary>
         /// Constructor til klassen. Initialiserer referencen til DataLayer.
         /// </summary>
-        /// 
-        private int antal;
+        ///
         public EkgRecored(ADC1015 adc)
         {
             this.adc = adc;
+            con = new DatabaseCon();
         }
+
         public bool Startmaling()
         {
             
@@ -69,6 +81,15 @@ namespace LogicLayer
             ekgfardig = true;
             return ekgfardig;
         }
+
+        public void CreateEkgDto(string Cpr)
+        {
+           
+            eKGmaaling = new DTO_EKGmaaling(Cpr, Convert.ToDateTime(StartTiden), EkgData, SampleRate);
+
+            con.InsertToDataBase(eKGmaaling);
+        }
+
 
 
     }
