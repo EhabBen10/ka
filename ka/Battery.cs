@@ -47,7 +47,7 @@ namespace ka
             //resultateriProcent = 5 * 6;
              
      
-            return resultateriProcent;
+            return /*resultateriProcent*/ 22;
         }
     }
 }

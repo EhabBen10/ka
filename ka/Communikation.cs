@@ -86,7 +86,9 @@ namespace ka
                                     lcd.lcdGotoXY(0, 0);
                                     lcd.lcdPrint("Maaling paabegyndt");
                                 //Thread.Sleep(3000);
+
                                 while (ekgRecored.Startmaling() == false) { } //den ny
+                                ekgRecored.CreateEkgDto(padlcd.CPRnummber);
                                 //while ( == false) { }
 
                                 lcd.lcdClear();
@@ -133,9 +135,11 @@ namespace ka
                         lcd.lcdClear();
                             lcd.lcdGotoXY(0, 0);
                             lcd.lcdPrint("Maaling paabegyndt");
+
                         //Thread.Sleep(3000);
-                        while (ekgRecored.Startmaling() == false) { } //den ny
-                                                                      //lcd.lcdGotoXY(0, 1);
+                        while (ekgRecored.Startmaling() == false) { } 
+                        ekgRecored.CreateEkgDto(padlcd.CPRnummber);
+
                         lcd.lcdClear();
                             lcd.lcdPrint("Maaling afsluttet");
                         Thread.Sleep(3000);
