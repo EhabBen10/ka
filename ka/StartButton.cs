@@ -17,7 +17,7 @@ namespace ka
         {
             //controller = new GpioController(PinNumberingScheme.Board);
             this.controller = controller;
-            controller.OpenPin(buttonPin, PinMode.InputPullUp);
+            controller.OpenPin(buttonPin, PinMode.InputPullUp); //der bliver brugt en interen pullup
         }
     
         public bool ButtonIPressed()

@@ -41,13 +41,13 @@ namespace ka
         public void WriteCpr()
         {
             //sender et signal
-            controller.OpenPin(26, PinMode.Output); // række 1
+            controller.OpenPin(26, PinMode.Output); // række 1 
             controller.OpenPin(24, PinMode.Output);// række 2
             controller.OpenPin(23, PinMode.Output); // række 3
             controller.OpenPin(22, PinMode.Output);// række 4
 
             //optage single 
-            controller.OpenPin(21, PinMode.InputPullDown); //col 1
+            controller.OpenPin(21, PinMode.InputPullDown); //col 1 registere trykket
             controller.OpenPin(19, PinMode.InputPullDown); // col 2
             controller.OpenPin(10, PinMode.InputPullDown); // col 3
 
