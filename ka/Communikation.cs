@@ -93,6 +93,12 @@ namespace ka
 
                                 lcd.lcdClear();
                                     lcd.lcdPrint("Maaling afsluttet");
+
+                                lcd.lcdGotoXY(0, 1);
+                                lcd.lcdPrint("Data er sendt");
+                                lcd.lcdGotoXY(0, 2);
+                                lcd.lcdPrint("mID = " + ekgRecored.CountId());
+
                                 Thread.Sleep(3000);
                           
 
@@ -142,6 +148,10 @@ namespace ka
 
                         lcd.lcdClear();
                             lcd.lcdPrint("Maaling afsluttet");
+                        lcd.lcdGotoXY(0, 1);
+                        lcd.lcdPrint("Data er sendt");
+                        lcd.lcdGotoXY(0, 2);
+                        lcd.lcdPrint("mID = " + ekgRecored.CountId());
                         Thread.Sleep(3000);
                     }
 

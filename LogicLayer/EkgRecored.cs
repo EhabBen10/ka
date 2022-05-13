@@ -90,6 +90,10 @@ namespace LogicLayer
             con.InsertToDataBase(eKGmaaling);
         }
 
+        public int CountId()
+        {
+            return con.CountId();
+        }
 
 
     }
