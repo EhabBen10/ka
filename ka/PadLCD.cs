@@ -219,43 +219,6 @@ namespace ka
 
 
 
-        /// <summary>
-        ///Tjekker og CPR-nummer er gyldig. 
-        /// </summary>
-        /// <returns>"true" hvis det er gyldig cpr nummer og "false" hvis den er ikke gyldig </returns>
-        //public bool VertifayCPR()
-        //{
-        //    int[] integer = new int[CPRnummber.Length]; // her laver en int array og sætter antallet til at være lige med bogstaverne i CPR-nr
-        //    for (int i = 0; i < CPRnummber.Length; i++)
-        //    {
-        //        for (int j = 0; j < integer.Length; j++)
-        //        {
-        //            if (j == i)
-        //            {
-        //                integer[j] = CPRnummber[i] - 48; //man er nøde til at trække 48 fra fordi 0 har værdien 48 når man laver det om
-        //            }
-        //        }
-        //    }
-        //    //// Algoritme der kotrollerer om cifrene danner et gyldigt personnummer
-        //    if ((4 * integer[0] + 3 * integer[1] + 2 * integer[2] + 7 * integer[3] + 6 * integer[4] + 5 * integer[5] + 4 * integer[6] + 3 * integer[7] + 2 * integer[8] + integer[9]) % 11 != 0)
-        //        return false;
-        //    else
-        //        return true;
-        //}
-
-       
-       
-        //public string Gyldig()
-        //{
-        //    if (VertifayCPR() == false)
-        //    {
-        //        return "Din cpr er ikke gyldig";
-        //    }
-        //    else
-        //    {
-        //        return "Din cpr er gyldig";
-        //    }
-        //}
 
 
         /// <summary>

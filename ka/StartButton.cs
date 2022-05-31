@@ -19,7 +19,11 @@ namespace ka
             this.controller = controller;
             controller.OpenPin(buttonPin, PinMode.InputPullUp); //der bliver brugt en interen pullup
         }
-    
+
+        /// <summary>
+        /// Om man trykker på knappen
+        /// </summary> 
+        /// <returns>true hvis man trykker på knappe, ellers false </returns>
         public bool ButtonIPressed()
         {
         

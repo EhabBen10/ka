@@ -18,6 +18,9 @@ namespace ka
         private ADC1015 adc;
         private int antal;
 
+        /// <summary>
+        /// Constructor til klassen. Initialiserer referencen til DataLayer.
+        /// </summary>
         public Battery(ADC1015 adc)
         {
             this.adc = adc;
@@ -26,6 +29,7 @@ namespace ka
 
         public double GetVoltage()
         {
+            #region gammle kode
             //resultateriProcent = 0;
             //double voltageInput = 0;
             //voltage = 0;
@@ -33,9 +37,10 @@ namespace ka
             //adc.ReadADC_SingleEnded(1);
             //adc.SamplingsRate = 1;
             //voltageInput = (adc.SINGLE_Measurement[1].Take() / 332.0);
+            #endregion
 
             antal = adc.SINGLE_Measurement[1].Count;
-            while(antal-- > 0)
+            while(antal-- > 0) // vi kører denne while fordi vi vil kun have en værdi og vi tager den alle sidste
             {
                 adc.SINGLE_Measurement[1].Take();
             }
@@ -43,12 +48,11 @@ namespace ka
 
 
             voltage = Convert.ToDouble((voltageInput / 2048.0) * 4.096) + 0.3 - 2.933; // den trækker jeg fra fordi de sidste i batteri er ikke gyldig, man pluser 0.3 fordi der er tab på 0.3 V pga lednerne
-            //voltage = (voltageInput / 2048.0) * 4.096;
             resultateriProcent = Convert.ToInt32(voltage * 113.636364); //denne ganger jeg med så jeg kan får det i %
-            //resultateriProcent = 5 * 6;
+         
              
      
-            return resultateriProcent;
+            return resultateriProcent; // det er så værdien i procent
         }
     }
 }

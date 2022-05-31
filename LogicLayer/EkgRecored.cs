@@ -85,7 +85,10 @@ namespace LogicLayer
             ekgfardig = true;
             return ekgfardig;
         }
-
+        /// <summary>
+        /// Opretter en EKG DTO
+        /// </summary>
+       
         public void CreateEkgDto(string Cpr)
         {
            
@@ -94,6 +97,10 @@ namespace LogicLayer
             con.InsertToDataBase(eKGmaaling);
         }
 
+        /// <summary>
+        ///Finder den mID måling har i Databasen
+        /// </summary>
+        /// <returns>mID fra databasen</returns>
         public int CountId()
         {
             return con.CountId();

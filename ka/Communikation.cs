@@ -287,7 +287,10 @@ namespace ka
     }
 
 
-
+        /// <summary>
+        ///Tjekker og CPR-nummer er gyldig. 
+        /// </summary>
+        /// <returns>"true" hvis det er gyldig cpr nummer og "false" hvis den er ikke gyldig </returns>
         public bool VertifayCPR()
         {
             int[] integer = new int[padlcd.CPRnummber.Length]; // her laver en int array og sætter antallet til at være lige med bogstaverne i CPR-nr

@@ -22,6 +22,8 @@ namespace Raspberry_Pi_Dot_Net_Core_Console_Application3
 
             com.RUN();
 
+
+            #region Nogle test i programmet de er alle sammen kommenteret ud
             #region testfra master
             //PadLCD number = new PadLCD();
 
@@ -215,6 +217,7 @@ namespace Raspberry_Pi_Dot_Net_Core_Console_Application3
             //    Console.WriteLine("Hello");
             //}
 
+            #endregion
             #endregion
         }
 

@@ -11,10 +11,18 @@ namespace DataLayer
         private SqlConnection sqlConnection;
 
         private string connectionstring = "Data Source=172.20.10.5\\SQLEXPRESS;Initial Catalog=EKGData;User ID=ehab;Password=vym39ejx;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+        /// <summary>
+        /// Constructor til klassen. Initialiserer referencen til DataLayer.
+        /// </summary>
         public DatabaseCon()
         {
             sqlConnection = new SqlConnection(connectionstring);
         }
+
+        /// <summary>
+        /// Tilføjer værdierne til Databasen
+        /// </summary>
         public void InsertToDataBase(DTO_EKGmaaling eKGmaaling)
         {
             //string str = "Data Source=172.20.10.5\\SQLEXPRESS;Initial Catalog=EKGData;User ID=ehab;Password=vym39ejx;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
