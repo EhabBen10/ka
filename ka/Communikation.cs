@@ -38,7 +38,7 @@ namespace ka
             controller = new GpioController(PinNumberingScheme.Board);
             lcd = new SerLCD();
             tWIST = new TWIST();
-            adc = new ADC1015();
+            adc = new ADC1015(72, 512); //gain er 512 fordi vi måler over 4 V og ikke 6
 
             lcd.lcdSetBackLight(50, 50, 0);
 

@@ -45,7 +45,7 @@ namespace DataLayer
         {
             int mID;
 
-            SqlCommand sqlCommand = new SqlCommand("Select Count(*) from Patients", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand("Select max(MalId) from Patients", sqlConnection);
             //sqlConnection.Open();
 
             mID = (int)sqlCommand.ExecuteScalar();

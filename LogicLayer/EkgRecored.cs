@@ -26,7 +26,7 @@ namespace LogicLayer
         /// </summary>
         public string StartTiden;
         /// <summary>
-        /// Array til de ekg data vi insamler fra patienten 
+        /// List til de ekg data vi insamler fra patienten 
         /// </summary>
         private List<double> EkgData; // de ekg data vi insamler fra patienten 
         /// <summary>
@@ -53,6 +53,10 @@ namespace LogicLayer
             con = new DatabaseCon();
         }
 
+        /// <summary>
+        /// Starter måling for EKG
+        /// </summary>
+        ///
         public bool Startmaling()
         {
             
