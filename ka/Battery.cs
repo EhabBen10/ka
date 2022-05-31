@@ -47,7 +47,7 @@ namespace ka
             voltageInput = adc.SINGLE_Measurement[1].Take(); // overveje at konvertere den til decimal 
 
 
-            voltage = Convert.ToDouble((voltageInput / 2048.0) * 4.096) + 0.3 - 2.933; // den trækker jeg fra fordi de sidste i batteri er ikke gyldig, man pluser 0.3 fordi der er tab på 0.3 V pga lednerne
+            voltage = Math.Round(Convert.ToDouble((voltageInput / 2048.0) * 4.096),1) + 0.3 - 2.933; // den trækker jeg fra fordi de sidste i batteri er ikke gyldig, man pluser 0.3 fordi der er tab på 0.3 V pga lednerne
             resultateriProcent = Convert.ToInt32(voltage * 113.636364); //denne ganger jeg med så jeg kan får det i %
          
              
