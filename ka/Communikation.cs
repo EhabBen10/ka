@@ -38,7 +38,7 @@ namespace ka
             controller = new GpioController(PinNumberingScheme.Board);
             lcd = new SerLCD();
             tWIST = new TWIST();
-            adc = new ADC1015(72, 512); //gain er 512 fordi vi måler over 4 V og ikke 6
+            adc = new ADC1015(72, 512); //gain er 512 fordi vi måler over 4 V og ikke 6 V
 
             lcd.lcdSetBackLight(50, 50, 0);
 
@@ -62,7 +62,7 @@ namespace ka
             while (true)
             {
                 Thread.Sleep(50);
-                batteriStatusVoltage = battery.GetVoltage(); //det er så den måler batterie statues hvert gange vi looper
+                batteriStatusVoltage = battery.GetVoltage(); //Det er så den måler batteristatus hver gange vi looper
 
                 if (startButton.ButtonIPressed() == true && batteriStatusVoltage > 20)
                 {
@@ -135,7 +135,7 @@ namespace ka
                         else
                         {
                         lcd.lcdClear();
-                        padlcd.CPRnummber = "9999990000"; //her skal man tilføje til databasen med binde strege måske
+                        padlcd.CPRnummber = "9999990000"; //Her skal man tilføje til databasen med binde strege måske
                         lcd.lcdPrint("CPR: " + padlcd.CPRnummber);
                         Thread.Sleep(3000);
                         lcd.lcdClear();
@@ -230,7 +230,7 @@ namespace ka
                         lcd.lcdPrint(Convert.ToDouble(batteriStatusVoltage) + "%");
                         batterystaues = batteriStatusVoltage;
                      
-                    } //hvis batteri´staus ændre sig og bliver større end før imens man og bliver mindre men større end 20%
+                    } //hvis batteri´staus ændrer sig og bliver større end før imens man og bliver mindre men større end 20%
                     if (batteriStatusVoltage < batterystaues && batteriStatusVoltage < 20) // denne kommer hvert gange batterie statues ænder sig.
                     {
                         lcd.lcdClear();
@@ -254,7 +254,7 @@ namespace ka
                         lcd.lcdPrint(Convert.ToDouble(batteriStatusVoltage) + "%");
                         batterystaues = batteriStatusVoltage;
 
-                    } //hvis batteri´staus ændre sig og bliver større  imens man og bliver mindre men større end 20%
+                    } //hvis batteri´staus ændrer sig og bliver større imens man og bliver mindre men større end 20%
                     if (batteriStatusVoltage > batterystaues && batteriStatusVoltage < 20) // denne kommer hvert gange batterie statues ænder sig.
                     {
                         lcd.lcdClear();

@@ -12,11 +12,11 @@ namespace ka
     class NumberPad
     {
 
-        private GpioController controller; //difinere Rpi pins
+        private GpioController controller; //definerer RPi pins
         public string CPRnummber { get; set; }
         public NumberPad()
         {
-            controller = new GpioController(PinNumberingScheme.Board); //dette er så jeg kan skrive pin istedet for GPIO
+            controller = new GpioController(PinNumberingScheme.Board); //Dette er så vi kan skrive pin istedet for GPIO
         }
 
 

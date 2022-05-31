@@ -14,7 +14,7 @@ namespace ka
 {
     class PadLCD
     {
-        private GpioController controller; //difinere Rpi pins
+        private GpioController controller; //Definerer RPi pins
         private SerLCD lCD;
         private TWIST tWIST;
      

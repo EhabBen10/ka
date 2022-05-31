@@ -40,19 +40,19 @@ namespace ka
             #endregion
 
             antal = adc.SINGLE_Measurement[1].Count;
-            while(antal-- > 0) // vi kører denne while fordi vi vil kun have en værdi og vi tager den alle sidste
+            while(antal-- > 0) // Vi kører denne while fordi vi kun vil have en værdi og vi tager den aller sidste
             {
                 adc.SINGLE_Measurement[1].Take();
             }
             voltageInput = adc.SINGLE_Measurement[1].Take(); // overveje at konvertere den til decimal 
 
 
-            voltage = Math.Round(Convert.ToDouble((voltageInput / 2048.0) * 4.096),1) + 0.3 - 2.933; // den trækker jeg fra fordi de sidste i batteri er ikke gyldig, man pluser 0.3 fordi der er tab på 0.3 V pga lednerne
-            resultateriProcent = Convert.ToInt32(voltage * 113.636364); //denne ganger jeg med så jeg kan får det i %
+            voltage = Math.Round(Convert.ToDouble((voltageInput / 2048.0) * 4.096),1) + 0.3 - 2.933; // Den trækker vi fra fordi det sidste i batteri er ikke gyldig, man plusser 0.3 fordi der er et tab på 0.3 V pga. ledningerne
+            resultateriProcent = Convert.ToInt32(voltage * 113.636364); //Denne ganger vi med så vi kan få det i %
          
              
      
-            return resultateriProcent; // det er så værdien i procent
+            return resultateriProcent; // Det er så værdien i procent
         }
     }
 }

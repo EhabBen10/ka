@@ -14,21 +14,21 @@ namespace LogicLayer
         private ADC1015 adc;
 
         /// <summary>
-        /// hvor mange måling vi skal tage pr.sek
+        /// Hvor mange målinger vi skal tage pr.sek
         /// </summary>
-        int SampleRate = 170; //hvor mange måling vi skal tage pr.sek
+        int SampleRate = 170; //Hvor mange målinger vi skal tage pr.sek
         /// <summary>
         ///  10 sekunder
         /// </summary>
-        int SamplePeriode = 10; // dvs 10 sekunder
+        int SamplePeriode = 10; // Dvs 10 sekunder
         /// <summary>
         /// Lokal variabel der sættes til DateTime.Now i formatet ToString("dd MMMM yyyy HH: mm:ss").
         /// </summary>
         public string StartTiden;
         /// <summary>
-        /// List til de ekg data vi insamler fra patienten 
+        /// List til de EKG data vi indsamler fra patienten 
         /// </summary>
-        private List<double> EkgData; // de ekg data vi insamler fra patienten 
+        private List<double> EkgData; // De ekg data vi indsamler fra patienten 
         /// <summary>
         /// en sample
         /// </summary>
@@ -54,7 +54,7 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// Starter måling for EKG
+        /// Starter målingen for EKG
         /// </summary>
         ///
         public bool Startmaling()
@@ -62,7 +62,7 @@ namespace LogicLayer
             
             bool ekgfardig = false;
             StartTiden = DateTime.Now.ToString("dd MMMM yyyy HH: mm:ss");
-            //EkgData = new double[SamplePeriode * SampleRate]; // dvs at den kører i 30 sek fordi den tager en måling hver 10 mSek dvs. 100 målinger pr. sek
+            //EkgData = new double[SamplePeriode * SampleRate]; // Dvs at den kører i 30 sek fordi den tager en måling hver 10 mSek - altså 100 målinger pr. sek
             adc.ReadADC_SingleEnded(0);
             EkgData = new List<double>();
             antal = SamplePeriode * SampleRate;
@@ -98,7 +98,7 @@ namespace LogicLayer
         }
 
         /// <summary>
-        ///Finder den mID måling har i Databasen
+        ///Finder det mID målingen har i Databasen
         /// </summary>
         /// <returns>mID fra databasen</returns>
         public int CountId()
